@@ -1,6 +1,8 @@
 import React, { Fragment, } from 'react';
 import './App.css';
 import Home from './pages/Home';
+import Profile from './pages/Profile';
+
 import NoMatch from './pages/NoMatch';
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
@@ -18,6 +20,7 @@ function App() {
       <Container> 
         <Switch>
           <ProtectedRoute Route exact path='/' component={Home} />
+          <ProtectedRoute Route exact path='/profile' component={Profile} />
           <Route exact path='/login' component={Login} />
           <Route exact path='/register' component={Register} />
           <Route component={NoMatch} />
