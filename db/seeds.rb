@@ -5,3 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+200.times do
+  name = Faker::Name.name 
+  avatar = Faker::Avatar.image
+  Profile.create(name: name, avatar: avatar)
+end
+
+puts "200 Profiles Seeded"

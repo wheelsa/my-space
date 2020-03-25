@@ -1,41 +1,55 @@
-import React from 'react'
-import { Card, Icon, Image, Button } from 'semantic-ui-react'
-import axios from 'axios'
-import { AuthConsumer, } from "../providers/AuthProvider"
+import React from 'react';
+import { Card, Icon, Image, Button } from 'semantic-ui-react';
+import axios from 'axios';
+
+import { AuthConsumer, } from "../providers/AuthProvider";
+import ProfileForm from '../components/ProfileForm' 
 
 class ProfilePage extends React.Component{
  
 state = {
-  users: ''
+  users: this.props.auth.user,
+  formView: false
  };
- 
-   componentDidMount(){ 
-     const userID= this.props.auth.user.id
-    
-     axios.get(`/api/users/${userID}`)
-     .then((res)=>{
-       this.setState({
-         users: res.data
-       })
-       
-     })
-     .catch((err) =>{
-       console.log(err)
-     })
-   }
+
+toggleFormView = () => (
+  this.setState( {
+    formView: !this.state.formView} )
+)
+
+viewForm = () => (
+  this.state.formView ? 
+  <ProfileForm/> : ''
+
+)
+// users:
+// id: 
+// provider: 
+// uid: 
+// name: 
+// nickname: 
+// image: 
+// email: 
+ showImage = () => {
+   const {image} = this.state.users
+   return ( image ? <Image src={`${image}`}wrapped ui={false} /> : '' )
+ }
 
   render(){
-    const {email, name, nickname} = this.state.users
+    console.log(this.state)
+    const {email, name, nickname, image, id} = this.state.users
  
   return(
+  
     <>
+    
      <Card>
-    <Image src='' wrapped ui={false} />
+    {this.showImage()}
     <Card.Content>
       <Card.Header> Nickname: {nickname} </Card.Header>
-      <Card.Meta>Date Joined</Card.Meta>
+      <Card.Meta>Email: {email}</Card.Meta>
       <Card.Description>
-        Daniel is a comedian living in Nashville.
+       This section is under construction.
       </Card.Description>
     </Card.Content>
     <Card.Content extra>
@@ -46,13 +60,21 @@ state = {
       <br />
       <span>Name: {name} </span>
       <br />
-      <span>Email: {email}  </span>
     </Card.Content>
   </Card>
 
+  <Button 
+      color="blue"
+      onClick={this.toggleFormView}>
+        Edit Profile
+    </Button>
+
+    {this.viewForm()}
+  
+
     <Button 
       color="blue"
-      onClick={this.props.history.goBack}>
+      onClick={this.toggleFormView}>
         Back
     </Button>
     </>

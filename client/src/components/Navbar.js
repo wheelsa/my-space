@@ -58,6 +58,18 @@ render(){
            id='home'
            active={this.props.location.pathname === '/'} />
         </Link>
+        <Link to='/profiles'>
+          <Menu.Item 
+           name='Discover Friends'
+           id='profiles'
+           active={this.props.location.pathname === '/profiles'} />
+        </Link>
+        <Link to='/my_profiles'>
+          <Menu.Item 
+           name='My Friends'
+           id='my_profiles'
+           active={this.props.location.pathname === '/my_profiles'} />
+        </Link>
         
         { this.rightNavItems() }
       </Menu>
